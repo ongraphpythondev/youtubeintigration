@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authentication</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+      <button type="submit" name="authenticate" value="auth" class="btn light"> Authenticate
+  </button>
+    </form>
+</body>
+</html>

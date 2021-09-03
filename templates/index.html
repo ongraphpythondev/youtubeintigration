@@ -1,0 +1,76 @@
+{% load embed_video_tags %}
+
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <!-- Bootstrap CSS -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>You tube integration</title>
+
+</head>
+<body>
+
+<!--This is for search button-->
+    <div class="container">
+        <div class="input-group">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-outline">
+                    <h5 class="mb-5">Welcome to my youtube</h5>
+                    <input type="search" name="search_text" class="form-control" />
+                </div>
+                <button type="submit" name="submit" value="search" class="btn light"> Search Videos </button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+<!--This is for showing the videos in embeded mode-->
+<div class="container-fluid mt-1">
+  <div class="row">
+    <div id="products" class="col-lg-9 mx-auto">
+        <div class="row mx-auto m-3">
+            {% for i in data %}
+                <div class="border rounded pt-4">
+                    <div class="card mx-auto mb-1" style="width: 18rem;">
+                        {% video i.url '426x240' %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{i.title}}</h5>
+
+                                {% if i.count == '0' %}
+                                <a href="http://127.0.0.1:8000/like_comment/?vid={{i.id}}&submit=like" class="btn btn-light border btn-sm">like</a>
+                                <a href="http://127.0.0.1:8000/like_comment/?vid={{i.id}}&submit=dislike" class="btn btn-light border btn-sm">dislike</a>
+
+                                {% elif i.count == 'like' %}
+                                <a href="http://127.0.0.1:8000/like_comment/?vid={{i.id}}&submit=like" class="btn btn-light border btn-sm">liked</a>
+                                <a href="http://127.0.0.1:8000/like_comment/?vid={{i.id}}&submit=dislike" class="btn btn-light border btn-sm">dislike</a>
+
+                                {% elif i.count == 'dislike' %}
+                                <a href="http://127.0.0.1:8000/like_comment/?vid={{i.id}}&submit=like" class="btn btn-light border btn-sm">like</a>
+                                <a href="http://127.0.0.1:8000/like_comment/?vid={{i.id}}&submit=dislike" class="btn btn-light border btn-sm">disliked</a>
+
+                                {% endif %}
+                            </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+  </div>
+</div>
+
+
+<!--bootstrap Files-->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>
